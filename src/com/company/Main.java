@@ -19,6 +19,9 @@ public class Main {
             s.copyTable(bufferedReader);
 
             bufferedReader.close();
+            s.makeWorkingTableCopy(s.sudokuTable);
+
+
         } catch (Exception e) {
 
             System.out.println("Unable to open file '" + fileName + "'");

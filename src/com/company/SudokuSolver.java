@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 public class SudokuSolver {
     char[][] sudokuTable = new char[9][9];
+    char[][] workingTableCopy = new char[9][9];
 
     public void copyTable(BufferedReader file) throws IOException {
         char ch;
@@ -25,5 +26,14 @@ public class SudokuSolver {
         System.out.println(Arrays.deepToString(sudokuTable));
 
     }
-    public void 
+    public void makeWorkingTableCopy(char[][] sudokuTable){
+        for (int row = 0; row < 9; row++){
+            for (int column = 0; column < 9; column++){
+                workingTableCopy[row][column] = sudokuTable[row][column];
+            }
+        }
+
+        System.out.println(" Working Table: ");
+        System.out.println(Arrays.deepToString(workingTableCopy));
+    }
 }
