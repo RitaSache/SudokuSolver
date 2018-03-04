@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Main {
 
@@ -24,6 +25,9 @@ public class Main {
             for(int row = 0; row < 9; row++)
                 for(int column = 0; column < 9; column++)
                     s.checkDuplicates(row, column);
+
+            System.out.println("duplicate Table: ");
+            s.printTable(s.workingTableCopy);
 
         } catch (Exception e) {
 

@@ -25,19 +25,18 @@ public class SudokuSolver {
             column = 0;
         }
         System.out.println("copied Table: ");
-        System.out.println(Arrays.deepToString(sudokuTable));
+        this.printTable(sudokuTable);
 
     }
+
     public void makeWorkingTableCopy(char[][] sudokuTable){
         for (int row = 0; row < 9; row++){
             for (int column = 0; column < 9; column++){
                 workingTableCopy[row][column] = sudokuTable[row][column];
             }
         }
-
-        System.out.println(" Working Table: ");
-        System.out.println(Arrays.deepToString(workingTableCopy));
     }
+
     public int getSubsquare(int row, int column){
 
         if (row <= 2 && column <= 2) {
@@ -73,33 +72,97 @@ public class SudokuSolver {
     public void checkDuplicates(int row, int column){
         int subgrid = getSubsquare(row,column);
 
+        int rowStart = 0;
+        int rowEnd = 0;
+        int columnStart = 0;
+        int columnEnd = 0;
+
         if (subgrid == 1){
-            char currentValue = sudokuTable[row][column];
-            for(int r1 = 0; r1 < 3; r1++){
-                for(int c1 = 0; c1 < 3; c1++){
-                    if(r1 == row && c1 == column) {
-                        continue;
-                    }
-                    if(currentValue == sudokuTable[r1][c1]) {
-                        workingTableCopy[r1][c1] = 0;
-                    }
-                }
-            }
+            rowStart = 0;
+            rowEnd = 3;
+            columnStart = 0;
+            columnEnd = 3;
         }
         else if (subgrid == 2){
-            char currentValue = sudokuTable[row][column];
-            for(int r2 = 0; r2 < 3; r2++){
-                for(int c2 = 3; c2 < 6; c2++){
-                    if(r2 == row && c2 == column){
-                        continue;
-                    }
-                    if(currentValue == sudokuTable[r2][c2]){
-                        workingTableCopy[r2][c2] = 0;
-                    }
+            rowStart = 0;
+            rowEnd = 3;
+            columnStart = 3;
+            columnEnd = 6;
+        }
+        else if (subgrid == 3){
+            rowStart = 0;
+            rowEnd = 3;
+            columnStart = 6;
+            columnEnd = 9;
+        }
+        else if (subgrid == 4){
+            rowStart = 3;
+            rowEnd = 6;
+            columnStart = 0;
+            columnEnd = 3;
+        }
+        else if (subgrid == 5){
+            rowStart = 3;
+            rowEnd = 6;
+            columnStart = 3;
+            columnEnd = 6;
+        }
+        else if (subgrid == 6){
+            rowStart = 3;
+            rowEnd = 6;
+            columnStart = 6;
+            columnEnd = 9;
+        }
+        else if (subgrid == 7){
+            rowStart = 6;
+            rowEnd = 9;
+            columnStart = 0;
+            columnEnd = 3;
+        }
+        else if (subgrid == 8){
+            rowStart = 6;
+            rowEnd = 9;
+            columnStart = 3;
+            columnEnd = 6;
+        }
+        else if (subgrid == 9){
+            rowStart = 6;
+            rowEnd = 9;
+            columnStart = 6;
+            columnEnd = 9;
+        }
+
+        char currentValue = workingTableCopy[row][column];
+        for(int dupRow = rowStart; dupRow < rowEnd; dupRow++) {
+            for (int dupCol = columnStart; dupCol < columnEnd; dupCol++) {
+                if (dupRow == row && dupCol == column) {
+                    continue;
+                }
+                if (currentValue == workingTableCopy[dupRow][dupCol]) {
+                    workingTableCopy[dupRow][dupCol] = 0;
                 }
             }
         }
+    }
 
+    public void printTable(char[][] table) {
 
+        for (int row = 0; row < 9; row++) {
+            if (row == 3 || row == 6)
+                System.out.println();
+
+            for(int column = 0; column < 9; column++) {
+                if(column == 3 || column == 6)
+                    System.out.print(" ");
+
+                System.out.print(table[row][column]);
+                System.out.print(",");
+            }
+
+            System.out.println();
+        }
+
+        System.out.println();
+        System.out.println();
     }
 }
