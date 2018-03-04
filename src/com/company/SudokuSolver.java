@@ -8,7 +8,6 @@ public class SudokuSolver {
     char[][] sudokuTable = new char[9][9];
     char[][] workingTableCopy = new char[9][9];
     int subSquare = 0;
-    char[][] duplicateArray = new char[9][9];
 
     public void copyTable(BufferedReader file) throws IOException {
         char ch;
@@ -142,6 +141,19 @@ public class SudokuSolver {
                     workingTableCopy[dupRow][dupCol] = 0;
                 }
             }
+        }
+    }
+
+    public void checkDuplicatesInRows(int row, int column){
+        char currentValue = workingTableCopy[row][column];
+        for (int dupColumn = 0; dupColumn < 9; dupColumn++){
+            if (dupColumn == column) {
+                continue;
+            }
+            if (currentValue == workingTableCopy[row][dupColumn]) {
+                workingTableCopy[row][dupColumn] = 0;
+            }
+
         }
     }
 

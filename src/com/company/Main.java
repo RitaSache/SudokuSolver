@@ -22,10 +22,12 @@ public class Main {
             bufferedReader.close();
             s.makeWorkingTableCopy(s.sudokuTable);
 
-            for(int row = 0; row < 9; row++)
-                for(int column = 0; column < 9; column++)
+            for (int row = 0; row < 9; row++) {
+                for (int column = 0; column < 9; column++) {
                     s.checkDuplicates(row, column);
-
+                    s.checkDuplicatesInRows(row, column);
+                }
+            }
             System.out.println("duplicate Table: ");
             s.printTable(s.workingTableCopy);
 
