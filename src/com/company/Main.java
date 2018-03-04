@@ -26,6 +26,7 @@ public class Main {
                 for (int column = 0; column < 9; column++) {
                     s.checkDuplicates(row, column);
                     s.checkDuplicatesInRows(row, column);
+                    s.checkDuplicatesInColumns(row, column);
                 }
             }
             System.out.println("duplicate Table: ");

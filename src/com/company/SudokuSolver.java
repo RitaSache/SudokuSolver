@@ -156,6 +156,17 @@ public class SudokuSolver {
 
         }
     }
+    public void checkDuplicatesInColumns(int row, int column){
+        char currentValue = workingTableCopy[row][column];
+        for(int dupRow = 0; dupRow < 9; dupRow++){
+            if (dupRow == row) {
+                continue;
+            }
+            if (currentValue == workingTableCopy[dupRow][column]) {
+                workingTableCopy[dupRow][column] = 0;
+            }
+        }
+    }
 
     public void printTable(char[][] table) {
 
