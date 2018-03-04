@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String fileName = "test4.txt";
+        String fileName = "dup1.txt";
 
         try {
             FileReader fileReader = new FileReader(fileName);
@@ -21,6 +21,9 @@ public class Main {
             bufferedReader.close();
             s.makeWorkingTableCopy(s.sudokuTable);
 
+            for(int row = 0; row < 9; row++)
+                for(int column = 0; column < 9; column++)
+                    s.checkDuplicates(row, column);
 
         } catch (Exception e) {
 
