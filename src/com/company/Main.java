@@ -1,10 +1,7 @@
 package com.company;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.util.Arrays;
 
 public class Main {
 
@@ -24,11 +21,12 @@ public class Main {
 
             for (int row = 0; row < 9; row++) {
                 for (int column = 0; column < 9; column++) {
-                    s.checkDuplicates(row, column);
-                    s.checkDuplicatesInRows(row, column);
-                    s.checkDuplicatesInColumns(row, column);
-                }
+                    s.hasDuplicatesInSubSquare(row, column);
+                    s.hasDuplicatesInRows(row, column);
+                    s.hasDuplicatesInColumns(row, column);
+                }//if true, assign 0 to cell here
             }
+            s.validateSudoku();
             System.out.println("duplicate Table: ");
             s.printTable(s.workingTableCopy);
 

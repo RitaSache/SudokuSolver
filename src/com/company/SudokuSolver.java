@@ -2,11 +2,12 @@ package com.company;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Random;
 
 public class SudokuSolver {
     char[][] sudokuTable = new char[9][9];
     char[][] workingTableCopy = new char[9][9];
+    char[][] threadTable = new char[9][9];
     int subSquare = 0;
 
     public void copyTable(BufferedReader file) throws IOException {
@@ -67,8 +68,8 @@ public class SudokuSolver {
         }
         return subSquare;
     }
-
-    public void checkDuplicates(int row, int column){
+//modify all three to return true/false, not set to 0
+    public boolean hasDuplicatesInSubSquare(int row, int column){
         int subgrid = getSubsquare(row,column);
 
         int rowStart = 0;
@@ -138,13 +139,14 @@ public class SudokuSolver {
                     continue;
                 }
                 if (currentValue == workingTableCopy[dupRow][dupCol]) {
-                    workingTableCopy[dupRow][dupCol] = 0;
+                    return true;
                 }
             }
         }
+        return false;
     }
 
-    public void checkDuplicatesInRows(int row, int column){
+    public void hasDuplicatesInRows(int row, int column){
         char currentValue = workingTableCopy[row][column];
         for (int dupColumn = 0; dupColumn < 9; dupColumn++){
             if (dupColumn == column) {
@@ -156,7 +158,7 @@ public class SudokuSolver {
 
         }
     }
-    public void checkDuplicatesInColumns(int row, int column){
+    public void hasDuplicatesInColumns(int row, int column){
         char currentValue = workingTableCopy[row][column];
         for(int dupRow = 0; dupRow < 9; dupRow++){
             if (dupRow == row) {
@@ -167,6 +169,58 @@ public class SudokuSolver {
             }
         }
     }
+
+    public char getRandomChar() {
+        Random random = new Random();
+        char[] numbers = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        return numbers[random.nextInt(numbers.length)];
+    }
+
+    public void validateSudoku() {
+        Point[] duplicatePoints = new Point[81];
+        int counter = 0;
+
+        for (int row = 0; row < 9; row++) {
+            for (int column = 0; column < 9; column++) {
+                if (workingTableCopy[row][column] == 0) {
+                    duplicatePoints[counter] = new Point(row, column);
+                    counter++;
+                }
+            }
+        }
+
+        for (int i = 0; i < counter; i++) {
+            Point p = duplicatePoints[i];
+
+            // If we cannot find a new number to try, we should go back
+            // and try other numbers
+            char guess = '0';
+
+            char[] numbers = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+            for (int j = 0; i < 9; i++) {
+                if (p.randomNumbers.contains(numbers[j])) {
+                    continue;
+                }
+
+                workingTableCopy[p.x][p.y] = numbers[j];
+                p.randomNumbers.add(numbers[j]);
+                //check guess (true/false array for three checks)
+
+                // if valid {
+                //   guess = numbers[j];
+                //   break;
+                // }
+
+            }
+
+            if (guess == '0') {
+                p.randomNumbers.clear();
+                i = i - 2;
+            }
+
+        }
+    }
+
 
     public void printTable(char[][] table) {
 
