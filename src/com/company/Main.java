@@ -21,12 +21,14 @@ public class Main {
 
             for (int row = 0; row < 9; row++) {
                 for (int column = 0; column < 9; column++) {
-                    s.hasDuplicatesInSubSquare(row, column);
-                    s.hasDuplicatesInRows(row, column);
-                    s.hasDuplicatesInColumns(row, column);
+                   s.hasDuplicatesInSubSquare(row, column);
+                   s.hasDuplicatesInRows(row, column);
+                   s.hasDuplicatesInColumns(row, column);
+
+
                 }//if true, assign 0 to cell here
             }
-            s.validateSudoku();
+            //s.validateSudoku();
             System.out.println("duplicate Table: ");
             s.printTable(s.workingTableCopy);
 

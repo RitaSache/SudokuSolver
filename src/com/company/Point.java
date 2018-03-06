@@ -2,8 +2,7 @@ package com.company;
 
 import java.util.ArrayList;
 
-//a while loop that goes through array of dups
-//
+
 public class Point {
 
     public int x;

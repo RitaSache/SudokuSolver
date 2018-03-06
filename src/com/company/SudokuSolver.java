@@ -69,7 +69,7 @@ public class SudokuSolver {
         return subSquare;
     }
 //modify all three to return true/false, not set to 0
-    public boolean hasDuplicatesInSubSquare(int row, int column){
+    public void hasDuplicatesInSubSquare(int row, int column){
         int subgrid = getSubsquare(row,column);
 
         int rowStart = 0;
@@ -139,14 +139,15 @@ public class SudokuSolver {
                     continue;
                 }
                 if (currentValue == workingTableCopy[dupRow][dupCol]) {
-                    return true;
+                    workingTableCopy[dupRow][dupCol] = 0;
+                    //return true;
                 }
             }
         }
-        return false;
+        //return false;
     }
 
-    public void hasDuplicatesInRows(int row, int column){
+    public boolean hasDuplicatesInRows(int row, int column){
         char currentValue = workingTableCopy[row][column];
         for (int dupColumn = 0; dupColumn < 9; dupColumn++){
             if (dupColumn == column) {
@@ -154,11 +155,13 @@ public class SudokuSolver {
             }
             if (currentValue == workingTableCopy[row][dupColumn]) {
                 workingTableCopy[row][dupColumn] = 0;
+                return true;
             }
 
         }
+        return false;
     }
-    public void hasDuplicatesInColumns(int row, int column){
+    public boolean hasDuplicatesInColumns(int row, int column){
         char currentValue = workingTableCopy[row][column];
         for(int dupRow = 0; dupRow < 9; dupRow++){
             if (dupRow == row) {
@@ -166,8 +169,10 @@ public class SudokuSolver {
             }
             if (currentValue == workingTableCopy[dupRow][column]) {
                 workingTableCopy[dupRow][column] = 0;
+                return true;
             }
         }
+        return false;
     }
 
     public char getRandomChar() {
@@ -176,7 +181,7 @@ public class SudokuSolver {
         return numbers[random.nextInt(numbers.length)];
     }
 
-    public void validateSudoku() {
+    /*public void validateSudoku() {
         Point[] duplicatePoints = new Point[81];
         int counter = 0;
 
@@ -197,7 +202,7 @@ public class SudokuSolver {
             char guess = '0';
 
             char[] numbers = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
-            for (int j = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
                 if (p.randomNumbers.contains(numbers[j])) {
                     continue;
                 }
@@ -219,7 +224,7 @@ public class SudokuSolver {
             }
 
         }
-    }
+    }*/
 
 
     public void printTable(char[][] table) {
