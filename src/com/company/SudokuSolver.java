@@ -7,7 +7,6 @@ import java.util.Random;
 public class SudokuSolver {
     char[][] sudokuTable = new char[9][9];
     char[][] workingTableCopy = new char[9][9];
-    char[][] threadTable = new char[9][9];
     int subSquare = 0;
 
     public void copyTable(BufferedReader file) throws IOException {
@@ -69,7 +68,7 @@ public class SudokuSolver {
         return subSquare;
     }
 //modify all three to return true/false, not set to 0
-    public void hasDuplicatesInSubSquare(int row, int column){
+    public boolean hasDuplicatesInSubSquare(int row, int column){
         int subgrid = getSubsquare(row,column);
 
         int rowStart = 0;
@@ -139,12 +138,11 @@ public class SudokuSolver {
                     continue;
                 }
                 if (currentValue == workingTableCopy[dupRow][dupCol]) {
-                    workingTableCopy[dupRow][dupCol] = 0;
-                    //return true;
+                    return true;
                 }
             }
         }
-        //return false;
+        return false;
     }
 
     public boolean hasDuplicatesInRows(int row, int column){
@@ -154,7 +152,6 @@ public class SudokuSolver {
                 continue;
             }
             if (currentValue == workingTableCopy[row][dupColumn]) {
-                workingTableCopy[row][dupColumn] = 0;
                 return true;
             }
 
@@ -168,7 +165,6 @@ public class SudokuSolver {
                 continue;
             }
             if (currentValue == workingTableCopy[dupRow][column]) {
-                workingTableCopy[dupRow][column] = 0;
                 return true;
             }
         }
@@ -181,7 +177,7 @@ public class SudokuSolver {
         return numbers[random.nextInt(numbers.length)];
     }
 
-    /*public void validateSudoku() {
+    public void validateSudoku() {
         Point[] duplicatePoints = new Point[81];
         int counter = 0;
 
@@ -210,21 +206,24 @@ public class SudokuSolver {
                 workingTableCopy[p.x][p.y] = numbers[j];
                 p.randomNumbers.add(numbers[j]);
                 //check guess (true/false array for three checks)
-
-                // if valid {
-                //   guess = numbers[j];
-                //   break;
-                // }
+                boolean hasDuplicate = hasDuplicatesInSubSquare(p.x,p.y);
+                boolean hasDuplicate2 = hasDuplicatesInRows(p.x, p.y);
+                boolean hasDuplicate3 = hasDuplicatesInColumns(p.x,p.y);
+                if (!hasDuplicate && !hasDuplicate2 && !hasDuplicate3) {
+                   guess = numbers[j];
+                   break;
+                }
 
             }
 
             if (guess == '0') {
+                workingTableCopy[p.x][p.y] = '0';
                 p.randomNumbers.clear();
                 i = i - 2;
             }
 
         }
-    }*/
+    }
 
 
     public void printTable(char[][] table) {
