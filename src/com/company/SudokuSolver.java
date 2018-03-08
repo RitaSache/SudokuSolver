@@ -193,8 +193,8 @@ public class SudokuSolver {
         for (int i = 0; i < counter; i++) {
             Point p = duplicatePoints[i];
 
-            // If we cannot find a new number to try, we should go back
-            // and try other numbers
+            // If it cannot find a new number to try, it goes back
+            // and tries other numbers
             char guess = '0';
 
             char[] numbers = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
@@ -205,17 +205,18 @@ public class SudokuSolver {
 
                 workingTableCopy[p.x][p.y] = numbers[j];
                 p.randomNumbers.add(numbers[j]);
-                //check guess (true/false array for three checks)
+                //check guess
                 boolean hasDuplicate = hasDuplicatesInSubSquare(p.x,p.y);
                 boolean hasDuplicate2 = hasDuplicatesInRows(p.x, p.y);
                 boolean hasDuplicate3 = hasDuplicatesInColumns(p.x,p.y);
                 if (!hasDuplicate && !hasDuplicate2 && !hasDuplicate3) {
                    guess = numbers[j];
+                   System.out.println("Correct number for row " + p.x + ", column " + p.y + " is: " + numbers[j]);
                    break;
                 }
 
             }
-
+            //if all guesses are invalid goes back to check previous point
             if (guess == '0') {
                 workingTableCopy[p.x][p.y] = '0';
                 p.randomNumbers.clear();

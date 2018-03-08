@@ -22,16 +22,19 @@ public class Main {
             ArrayList<Point> duplicates = new ArrayList<>();
             for (int row = 0; row < 9; row++) {
                 for (int column = 0; column < 9; column++) {
-                   boolean dupsinSubsquare = s.hasDuplicatesInSubSquare(row, column);
+                   boolean dupsInSubsquare = s.hasDuplicatesInSubSquare(row, column);
                    boolean dupsInRow = s.hasDuplicatesInRows(row, column);
                    boolean dupsInColumns = s.hasDuplicatesInColumns(row, column);
 
-                   if(dupsinSubsquare || dupsInRow || dupsInColumns) {
+                   if(dupsInSubsquare || dupsInRow || dupsInColumns) {
                        Point d = new Point(row, column);
                        duplicates.add(d);
+                       System.out.println("Error in row: " + d.x + ", column: " + d.y);
                    }
                 }
             }
+            System.out.println();
+            System.out.println();
             for(int i = 0; i < duplicates.size(); i++){
                 Point p = duplicates.get(i);
                 s.workingTableCopy[p.x][p.y] = 0;
@@ -40,6 +43,8 @@ public class Main {
             s.printTable(s.workingTableCopy);
 
             s.validateSudoku();
+            System.out.println();
+            System.out.println();
             System.out.println("Validated Table: ");
             s.printTable(s.workingTableCopy);
 
