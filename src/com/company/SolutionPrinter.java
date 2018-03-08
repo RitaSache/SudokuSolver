@@ -10,11 +10,13 @@ public class SolutionPrinter {
         finished = false;
     }
     public void printSolution(SudokuSolver s, String threadName){
-        //print the validated sudoku table
-        //terminate all threads
+        //prints the validated sudoku table after the fastest thread finishes
+        //sets finished to true so that the rest of the threads won't print validated table
+        //prints correct answers
         if(!finished) {
             finished = true;
             System.out.println("Thread that finished is: " + threadName);
+            System.out.println();
             System.out.println("Validated Table: ");
             s.printTable(s.workingTableCopy);
             for(int i = 0; i < points.size(); i++){
