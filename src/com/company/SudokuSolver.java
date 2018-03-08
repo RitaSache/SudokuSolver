@@ -35,6 +35,15 @@ public class SudokuSolver {
             }
         }
     }
+    public char[][] copyWorkingTable(char[][] table){
+        char[][] newWorkingTable = new char[9][9];
+        for (int row = 0; row < 9; row++){
+            for (int column = 0; column < 9; column++){
+                newWorkingTable[row][column] = table[row][column];
+            }
+        }
+        return newWorkingTable;
+    }
 
     public int getSubsquare(int row, int column){
 
@@ -211,7 +220,6 @@ public class SudokuSolver {
                 boolean hasDuplicate3 = hasDuplicatesInColumns(p.x,p.y);
                 if (!hasDuplicate && !hasDuplicate2 && !hasDuplicate3) {
                    guess = numbers[j];
-                   System.out.println("Correct number for row " + p.x + ", column " + p.y + " is: " + numbers[j]);
                    break;
                 }
 

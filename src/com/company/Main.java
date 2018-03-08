@@ -7,7 +7,10 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
+        ArrayList<Point> duplicates = new ArrayList<>();
 
+        ArrayList<MultiThreads> threads = new ArrayList<>();
+        SolutionPrinter o = new SolutionPrinter(duplicates);
         String fileName = "test4.txt";
 
         try {
@@ -19,7 +22,6 @@ public class Main {
 
             bufferedReader.close();
             s.makeWorkingTableCopy(s.sudokuTable);
-            ArrayList<Point> duplicates = new ArrayList<>();
             for (int row = 0; row < 9; row++) {
                 for (int column = 0; column < 9; column++) {
                    boolean dupsInSubsquare = s.hasDuplicatesInSubSquare(row, column);
@@ -42,12 +44,16 @@ public class Main {
             System.out.println("duplicate Table:");
             s.printTable(s.workingTableCopy);
 
-            s.validateSudoku();
-            System.out.println();
-            System.out.println();
-            System.out.println("Validated Table: ");
-            s.printTable(s.workingTableCopy);
-
+            for(int i = 0; i < 9; i++) {
+                SudokuSolver h = new SudokuSolver();
+                h.workingTableCopy = s.copyWorkingTable(s.workingTableCopy); //create a new sudoku solver and make a copy of original working table, then put it into new sudokusolver
+                MultiThreads t = new MultiThreads("thread" + i, h, o);
+                t.start();
+                threads.add(t);
+            }
+            for(int i = 0; i < 9; i++){
+                threads.get(i).join();
+            }
         } catch (Exception e) {
 
             System.out.println("Unable to open file '" + fileName + "'");
